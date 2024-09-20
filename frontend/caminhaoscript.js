@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const apiBaseUrl = 'http://localhost:3000'; // Caminho correto do servidor Node.js
+    const apiBaseUrl = 'http://localhost:3000';
     const insertForm = document.getElementById('insertForm');
     const caminhoesTable = document.getElementById('caminhoesTable').querySelector('tbody');
 
-    // Função para inserir ou atualizar um caminhão
     insertForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Previne a submissão padrão do formulário
+        event.preventDefault();
 
         const formData = new FormData(insertForm);
         const data = Object.fromEntries(formData);
@@ -14,20 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
             let response;
             const modeloParaAtualizar = insertForm.getAttribute('data-update');
             if (modeloParaAtualizar) {
-                // Se for uma atualização, faz uma requisição PUT
                 const encodedModelo = encodeURIComponent(modeloParaAtualizar);
                 response = await axios.put(`${apiBaseUrl}/caminhoes/${encodedModelo}`, data);
             } else {
-                // Se for uma inserção, faz uma requisição POST
                 response = await axios.post(`${apiBaseUrl}/caminhoes`, data);
             }
 
-            alert(response.data.message); // Alerta de sucesso
-            insertForm.reset(); // Reseta o formulário
-            loadCaminhoes(); // Recarrega a lista de caminhões
+            alert(response.data.message);
+            insertForm.reset();
+            loadCaminhoes();
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
-                // Exibe a mensagem de erro do backend, como no caso de disjunção
                 alert(error.response.data.message);
             } else {
                 alert('Erro ao inserir/atualizar o caminhão.');
@@ -35,13 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Função para carregar caminhões e preencher a tabela
     async function loadCaminhoes() {
         try {
             const response = await axios.get(`${apiBaseUrl}/caminhoes`);
-            caminhoesTable.innerHTML = ''; // Limpar a tabela antes de preenchê-la
+            caminhoesTable.innerHTML = '';
 
-            // Itera sobre cada caminhão e adiciona uma nova linha à tabela
             response.data.forEach(caminhao => {
                 const row = `
                     <tr>
@@ -55,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 caminhoesTable.insertAdjacentHTML('beforeend', row);
             });
 
-            // Adicionar evento de clique para os botões de deletar
             document.querySelectorAll('.delete-btn').forEach(button => {
                 button.addEventListener('click', async (event) => {
                     const modelo = event.target.getAttribute('data-modelo');
@@ -63,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         try {
                             const response = await axios.delete(`${apiBaseUrl}/caminhoes/${modelo}`);
                             alert(response.data.message);
-                            loadCaminhoes(); // Recarrega a lista de caminhões após a deleção
+                            loadCaminhoes();
                         } catch (error) {
                             console.error('Erro ao deletar o caminhão:', error);
                             alert('Erro ao deletar o caminhão.');
@@ -72,14 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            // Adicionar evento de clique para os botões de atualizar
             document.querySelectorAll('.update-btn').forEach(button => {
                 button.addEventListener('click', async (event) => {
                     const modelo = event.target.getAttribute('data-modelo');
                     try {
                         const caminhao = response.data.find(c => c[0] === modelo);
 
-                        // Preencher o formulário com os dados do caminhão selecionado
                         document.getElementById('modelo_maq').value = caminhao[0];
                         document.getElementById('capacidade_cacamba').value = caminhao[1];
 
@@ -96,6 +87,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Carregar caminhões ao iniciar a página
     loadCaminhoes();
 });
