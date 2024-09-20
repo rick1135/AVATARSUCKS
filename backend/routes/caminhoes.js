@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// Rota para listar todos os caminhões
 router.get('/', async (req, res) => {
     try {
         const result = await req.db.execute(`SELECT * FROM CAMINHAO`);
@@ -12,12 +11,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Rota para inserir um novo caminhão com verificação de modelo na tabela ESCAVADEIRA
 router.post('/', async (req, res) => {
     const { modelo_maq, capacidade_cacamba } = req.body;
 
     try {
-        // Verificar se o modelo já existe na tabela ESCAVADEIRA
+
         const checkQuery = `SELECT MODELO_MAQ FROM ESCAVADEIRA WHERE MODELO_MAQ = :modelo_maq`;
         const checkResult = await req.db.execute(checkQuery, [modelo_maq]);
 
@@ -25,7 +23,6 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: `Erro: O modelo '${modelo_maq}' já existe na tabela ESCAVADEIRA.` });
         }
 
-        // Inserir o caminhão se não houver conflito de modelo
         const query = `
             INSERT INTO CAMINHAO (MODELO_MAQ, CAPACIDADE_CACAMBA)
             VALUES (:modelo_maq, :capacidade_cacamba)
@@ -38,7 +35,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Rota para deletar um caminhão pelo modelo
 router.delete('/:modelo_maq', async (req, res) => {
     const modelo_maq = req.params.modelo_maq;
 
@@ -52,7 +48,6 @@ router.delete('/:modelo_maq', async (req, res) => {
     }
 });
 
-// Rota para atualizar um caminhão
 router.put('/:modelo_maq', async (req, res) => {
     const modeloOriginal = req.params.modelo_maq;
     const { modelo_maq, capacidade_cacamba } = req.body;

@@ -15,53 +15,46 @@ router.get('/', async (req, res) => {
 router.get('/cientistas', async (req, res) => {
     try {
         const result = await req.db.execute(`SELECT ID, NOME FROM CIENTISTA`);
-        res.json(result.rows);  // Certifique-se de que "ID" e "NOME" estão sendo retornados
+        res.json(result.rows);
     } catch (error) {
         console.error('Erro ao buscar cientistas:', error);
         res.status(500).json({ error: 'Erro ao buscar cientistas.' });
     }
 });
 
-
-
-// Rota para listar laboratórios (para preencher o select no formulário)
 router.get('/laboratorios', async (req, res) => {
     try {
         const result = await req.db.execute(`SELECT SIGLA, NOME FROM LABORATORIO`);
-        res.json(result.rows); // Retornar a lista de laboratórios
+        res.json(result.rows);
     } catch (error) {
         console.error('Erro ao buscar laboratórios:', error);
         res.status(500).json({ message: 'Erro ao buscar laboratórios.' });
     }
 });
 
-// Rota para inserir uma nova pesquisa
 router.post('/', async (req, res) => {
     const { nome, resultado, qtd_equip, nome_equip, utilidade, consumo_energia, id_cientista, sigla_lab } = req.body;
 
-    console.log("Dados recebidos no backend:", req.body);  // Log para verificar os dados recebidos no backend
+    console.log("Dados recebidos no backend:", req.body); 
 
     try {
         const query = `
             INSERT INTO PESQUISA (NOME, RESULTADO, QTD_EQUIP, NOME_EQUIP, UTILIDADE, CONSUMO_ENERGIA, ID_CIENTISTA, SIGLA_LAB)
             VALUES (:nome, :resultado, :qtd_equip, :nome_equip, :utilidade, :consumo_energia, :id_cientista, :sigla_lab)
         `;
-        console.log("Query SQL:", query);  // Log da query SQL que será executada
+        console.log("Query SQL:", query);
         
         await req.db.execute(query, [nome, resultado, qtd_equip, nome_equip, utilidade, consumo_energia, id_cientista, sigla_lab], { autoCommit: true });
         
         res.status(201).json({ message: 'Pesquisa inserida com sucesso!' });
     } catch (error) {
-        console.error('Erro ao inserir pesquisa:', error);  // Log do erro detalhado
+        console.error('Erro ao inserir pesquisa:', error);
         res.status(500).json({ message: 'Erro ao inserir pesquisa.', error });
     }
 });
 
-
-
-// Rota para deletar uma pesquisa pelo nome
 router.delete('/:nome', async (req, res) => {
-    const nomePesquisa = req.params.nome;  // Obtém o nome da pesquisa a ser deletada
+    const nomePesquisa = req.params.nome;
 
     try {
         const query = `DELETE FROM PESQUISA WHERE NOME = :nome`;
@@ -73,9 +66,8 @@ router.delete('/:nome', async (req, res) => {
     }
 });
 
-// Rota para atualizar uma pesquisa pelo nome
 router.put('/:nome', async (req, res) => {
-    const nomePesquisa = req.params.nome;  // Pega o nome da pesquisa da URL
+    const nomePesquisa = req.params.nome; 
     const { nome, resultado, qtd_equip, nome_equip, utilidade, consumo_energia, id_cientista, sigla_lab } = req.body;
 
     try {
@@ -93,11 +85,5 @@ router.put('/:nome', async (req, res) => {
         res.status(500).json({ message: 'Erro ao atualizar a pesquisa.' });
     }
 });
-
-
-
-
-
-
 
 module.exports = router;

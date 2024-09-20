@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// Rota para retornar os dados da consulta SQL
 router.get('/', async (req, res) => {
   try {
     const query = `

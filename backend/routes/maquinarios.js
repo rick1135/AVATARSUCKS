@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// Rota para listar todos os maquinários
 router.get('/', async (req, res) => {
     try {
         const result = await req.db.execute(`SELECT * FROM MAQUINARIO`);
@@ -12,7 +11,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Rota para inserir um novo maquinário
 router.post('/', async (req, res) => {
     const { modelo, peso_operacional, potencia } = req.body;
 
@@ -29,7 +27,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Rota para deletar um maquinário pelo modelo
 router.delete('/:modelo', async (req, res) => {
     const modelo = req.params.modelo;
 
@@ -43,7 +40,6 @@ router.delete('/:modelo', async (req, res) => {
     }
 });
 
-// Rota para atualizar um maquinário
 router.put('/:modelo', async (req, res) => {
     const modeloOriginal = req.params.modelo;
     const { modelo, peso_operacional, potencia } = req.body;
