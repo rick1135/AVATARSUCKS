@@ -2,14 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const oracledb = require('oracledb');
+const cors = require('cors');
 
-// Carregar variáveis de ambiente
 dotenv.config();
 
 const app = express();
-app.use(bodyParser.json());
 
-// Conexão com o banco de dados Oracle
+app.use(cors()); // Habilita CORS
+app.use(bodyParser.json()); // Suporte para JSON
+
+// Função para obter conexão com o banco de dados Oracle
 async function getConnection() {
     return await oracledb.getConnection({
         user: process.env.DB_USER,
@@ -18,7 +20,7 @@ async function getConnection() {
     });
 }
 
-// Middleware de conexão
+// Middleware para gerenciar a conexão
 app.use(async (req, res, next) => {
     try {
         req.db = await getConnection();
@@ -29,11 +31,20 @@ app.use(async (req, res, next) => {
     }
 });
 
-// Importar rotas
-const cientistasRoutes = require('./routes/cientistas');
-app.use('/cientistas', cientistasRoutes);
+// Rotas
+const pesquisasRoutes = require('./routes/pesquisas');
+const maquinarioRoutes = require('./routes/maquinarios');
+const escavadeiraRoutes = require('./routes/escavadeiras');
+const caminhaoRoutes = require('./routes/caminhoes');
+const consultasRoutes = require('./routes/consultas');
 
-// Fechar conexão após cada request
+app.use('/pesquisas', pesquisasRoutes);
+app.use('/maquinarios', maquinarioRoutes);
+app.use('/escavadeiras', escavadeiraRoutes);
+app.use('/caminhoes', caminhaoRoutes);
+app.use('/consultas', consultasRoutes);
+
+// Fecha a conexão ao finalizar a requisição
 app.use(async (req, res, next) => {
     if (req.db) {
         try {
@@ -45,7 +56,7 @@ app.use(async (req, res, next) => {
     next();
 });
 
-// Iniciar o servidor
+// Porta do servidor
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);

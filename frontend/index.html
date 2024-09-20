@@ -1,104 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Avatar Sucks</title>
-    <link rel="stylesheet" href="/frontend/style.css">
-
-</head>
-<body>
-
-    <header>
-        <h1>Sistema AvatarSucks</h1>
+    <link rel="stylesheet" href="../frontend/style.css" />
+  </head>
+  <body>
+    <header
+      style="
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-around;
+      "
+    >
+      <h1>Sistema AvatarSucks</h1>
+      <a href="./index.html"
+        ><img width="30" style="color: white" src="./home.svg" alt="home"
+      /></a>
     </header>
 
     <nav>
-        <ul>
-            <li><a href="#insert">Inserir Cientista</a></li>
-            <li><a href="#list">Listar Cientistas</a></li>
-            <li><a href="#update">Atualizar Cientista</a></li>
-            <li><a href="#delete">Remover Cientista</a></li>
-        </ul>
+      <ul>
+        <li><a href="./maquinario.html">Maquinário</a></li>
+        <li><a href="./escavadeira.html">Escavadeira</a></li>
+        <li><a href="./caminhao.html">Caminhão</a></li>
+        <li><a href="./consultafinal.html">Consulta Final</a></li>
+      </ul>
     </nav>
 
     <section id="insert">
-        <h2>Inserir Cientista</h2>
-        <form>
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
+      <h2>Inserir Pesquisa</h2>
+      <form id="insertForm">
+        <label for="nome">Nome da Pesquisa:</label>
+        <input type="text" id="nome" name="nome" required />
 
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
+        <label for="resultado">Resultado (Sucesso/Fracasso):</label>
+        <select id="resultado" name="resultado">
+          <option value="0">Fracasso</option>
+          <option value="1">Sucesso</option>
+        </select>
 
-            <label for="dob">Data de Nascimento:</label>
-            <input type="date" id="dob" name="dob" required>
+        <label for="qtd_equip">Quantidade de Equipamentos:</label>
+        <input type="number" id="qtd_equip" name="qtd_equip" required />
 
-            <label for="foreignKey">Selecione a chave estrangeira:</label>
-            <select id="foreignKey" name="foreignKey">
-                <option value="1">Opção 1</option>
-                <option value="2">Opção 2</option>
-                <option value="3">Opção 3</option>
-            </select>
+        <label for="nome_equip">Nome do Equipamento:</label>
+        <input type="text" id="nome_equip" name="nome_equip" required />
 
-            <button type="submit">Inserir</button>
-        </form>
+        <label for="utilidade">Utilidade:</label>
+        <input type="text" id="utilidade" name="utilidade" required />
+
+        <label for="consumo_energia">Consumo de Energia:</label>
+        <input
+          type="number"
+          step="0.01"
+          id="consumo_energia"
+          name="consumo_energia"
+          required
+        />
+
+        <label for="id_cientista">Cientista (ID):</label>
+        <select id="cientistaSelect" name="id_cientista" required>
+          <option value="">Selecione um cientista</option>
+        </select>
+
+        <label for="sigla_lab">Laboratório (Sigla):</label>
+        <select id="laboratorioSelect" name="sigla_lab" required>
+          <option value="">Selecione um laboratório</option>
+        </select>
+
+        <button type="submit">Inserir</button>
+      </form>
     </section>
 
     <section id="list">
-        <h2>Listar Cientistas</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Data de Nascimento</th>
-                    <th>Chave Estrangeira</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>João Silva</td>
-                    <td>joao@exemplo.com</td>
-                    <td>1990-05-20</td>
-                    <td>Opção 1</td>
-                </tr>
-                
-            </tbody>
-        </table>
-    </section>
-
-    <section id="update">
-        <h2>Atualizar Cientista</h2>
-        <form>
-            <label for="id">ID do registro:</label>
-            <input type="text" id="id" name="id" required>
-
-            <label for="name">Novo Nome:</label>
-            <input type="text" id="name" name="name">
-
-            <label for="email">Novo E-mail:</label>
-            <input type="email" id="email" name="email">
-
-            <button type="submit">Atualizar</button>
-        </form>
-    </section>
-
-    <section id="delete">
-        <h2>Remover Cientista</h2>
-        <form>
-            <label for="deleteId">ID do registro a remover:</label>
-            <input type="text" id="deleteId" name="deleteId" required>
-
-            <button type="submit">Remover</button>
-        </form>
+      <h2>Listar Pesquisas</h2>
+      <table id="pesquisasTable">
+        <thead>
+          <tr>
+            <th>Nome da Pesquisa</th>
+            <th>Resultado</th>
+            <th>Quantidade de Equipamentos</th>
+            <th>Nome do Equipamento</th>
+            <th>Utilidade</th>
+            <th>Consumo de Energia</th>
+            <th>Cientista (ID)</th>
+            <th>Laboratório (Sigla)</th>
+            <th>Ações</th>
+            <!-- Nova coluna para Ações -->
+          </tr>
+        </thead>
+        <tbody>
+          <!-- As linhas serão preenchidas dinamicamente via JavaScript -->
+        </tbody>
+      </table>
     </section>
 
     <footer>
-        <p>Desenvolvido por <a target="_blank" href="https://github.com/warleyramires">Warley Ramires</a> & <a href="https://github.com/rick1135/rick1135" target="_blank">Alberto Henrique</a></p>
+      <p>
+        Desenvolvido por
+        <a href="https://github.com/rick1135/rick1135" target="_blank"
+          >Alberto Henrique</a
+        >
+        &
+        <a target="_blank" href="https://github.com/warleyramires"
+          >Warley Ramires</a
+        >
+      </p>
     </footer>
-    
-</body>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../frontend/script.js" defer></script>
+  </body>
 </html>

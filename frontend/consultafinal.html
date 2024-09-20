@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consulta Final</title>
+    <link rel="stylesheet" href="./consultafinal.css" />
+  </head>
+  <body>
+    <header
+      style="
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-around;
+      "
+    >
+      <h1>Consulta final</h1>
+      <a href="./index.html"
+        ><img width="30" style="color: white" src="./home.svg" alt="home"
+      /></a>
+    </header>
+
+    <nav>
+        <ul>
+          <li><a href="./maquinario.html">Maquinário</a></li>
+          <li><a href="./escavadeira.html">Escavadeira</a></li>
+          <li><a href="./caminhao.html">Caminhão</a></li>
+          <li><a href="./consultafinal.html">Consulta Final</a></li>
+        </ul>
+      </nav>
+
+    <section id="list">
+      <h2>Listar Dados</h2>
+      <table id="tabela-dados">
+        <thead>
+          <tr>
+            <th>Sigla Colônia</th>
+            <th>Apelido Colônia</th>
+            <th>Tipo Colônia</th>
+            <th>Sigla Laboratório</th>
+            <th>Nome Laboratório</th>
+            <th>Finalidade Laboratório</th>
+            <th>Sigla Residência</th>
+            <th>Nome Residência</th>
+            <th>Qtd Cama</th>
+            <th>Qtd Banheiro</th>
+            <th>Sigla Depósito</th>
+            <th>Nome Depósito</th>
+            <th>Tipo Material</th>
+            <th>Nome Minerador</th>
+            <th>Nome Cientista</th>
+            <th>Nome Equipamento</th>
+            <th>Utilidade Equipamento</th>
+            <th>Consumo Energia</th>
+            <th>Latitude Jazida</th>
+            <th>Altura Jazida</th>
+            <th>Longitude Jazida</th>
+            <th>Modelo Maquinário</th>
+            <th>Potência Maquinário</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <footer>
+      <p>
+        Desenvolvido por
+        <a href="https://github.com/rick1135/rick1135" target="_blank"
+          >Alberto Henrique</a
+        >
+        &
+        <a target="_blank" href="https://github.com/warleyramires"
+          >Warley Ramires</a
+        >
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="consultafinalscript.js"></script>
+  </body>
+</html>
